@@ -10,7 +10,7 @@ node {
          stage('Code scanning'){
                     sh '''
                     printenv
-                    mvn clean deploy -DskipTests
+                    mvn clean deploy -DskipTests -Pjenkins -Partifactory
                     '''
                 }
 

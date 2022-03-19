@@ -34,6 +34,8 @@
         <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
         <!--<spring-cloud.version>2021.0.1</spring-cloud.version>-->
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+
+        <jfrog.host>emon</jfrog.host>
     </properties>
 
     <dependencyManagement>
@@ -50,6 +52,19 @@
 
     <profiles>
         <profile>
+            <id>jenkins</id>
+            <!--<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>-->
+            <properties>
+                <jfrog.host>172.17.0.1</jfrog.host>
+            </properties>
+            <!--表示默认不编译，该profile激活时额外编译的module-->
+            <!--<modules>
+                <module>scala-learning</module>
+            </modules>-->
+        </profile>
+        <profile>
             <id>artifactory</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -62,13 +77,13 @@
                     </snapshots>
                     <id>jcentral</id>
                     <name>libs-release</name>
-                    <url>http://emon:8083/artifactory/libs-release</url>
+                    <url>http://${jfrog.host}:8083/artifactory/libs-release</url>
                 </repository>
                 <repository>
                     <snapshots/>
                     <id>jsnapshots</id>
                     <name>libs-snapshot</name>
-                    <url>http://emon:8083/artifactory/libs-snapshot</url>
+                    <url>http://${jfrog.host}:8083/artifactory/libs-snapshot</url>
                 </repository>
             </repositories>
 
@@ -79,13 +94,13 @@
                     </snapshots>
                     <id>jcentral</id>
                     <name>libs-release</name>
-                    <url>http://emon:8083/artifactory/libs-release</url>
+                    <url>http://${jfrog.host}:8083/artifactory/libs-release</url>
                 </pluginRepository>
                 <pluginRepository>
                     <snapshots/>
                     <id>jsnapshots</id>
                     <name>libs-snapshot</name>
-                    <url>http://emon:8083/artifactory/libs-snapshot</url>
+                    <url>http://${jfrog.host}:8083/artifactory/libs-snapshot</url>
                 </pluginRepository>
             </pluginRepositories>
 
@@ -93,12 +108,12 @@
                 <repository>
                     <id>jcentral</id>
                     <name>ba0d6b8d5a2d-releases</name>
-                    <url>http://172.17.0.1:8083/artifactory/libs-release</url>
+                    <url>http://${jfrog.host}:8083/artifactory/libs-release</url>
                 </repository>
                 <snapshotRepository>
                     <id>jsnapshots</id>
                     <name>ba0d6b8d5a2d-snapshots</name>
-                    <url>http://172.17.0.1:8083/artifactory/libs-snapshot</url>
+                    <url>http://${jfrog.host}:8083/artifactory/libs-snapshot</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
