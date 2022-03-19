@@ -1,49 +1,81 @@
 node {
-
+    def mvnHome
     stage('Pull source code') {
-       git 'https://git.imooc.com/coding-439/Notebook-k8s.git'
+       git 'https://github.com/EmonCodingBackEnd/backend-devops-learning.git'
 
+       mvnHome = tool 'maven'
     }
-    dir('Chapter-6/notebook-service') {
-        //Maven 构建，制品上传到 Artifactory
-        stage('Maven build'){
-            def server = Artifactory.newServer url: "http://localhost:8083/artifactory", credentialsId: 'art-oss-cred'
-            def rtMaven = Artifactory.newMavenBuild()
+    dir('notebook-service') {
 
-            rtMaven.tool = 'maven' // Tool name from Jenkins configuration
-            rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+         stage('Code scanning'){
+                    sh '''
+                    printenv
+                    mvn clean deploy -DskipTests
+                    '''
+                }
 
-            //收集构建信息
-            def buildInfo = Artifactory.newBuildInfo()
-            // server.publishBuildInfo buildInfo
-            rtMaven.run pom: 'pom.xml', goals: 'deploy -Dmaven.test.skip=true', buildInfo: buildInfo
+//         stage('Maven build and Unit Test'){
+//             sh '''
+//             mvn package
+//             curl  -H \"X-JFrog-Art-Api: AKCp8krAbJnpHRmCxRwQyh2t58cC6Hn6zURWKFwMaHGKvG7LP7FHRzLVuMBsEYdGaGBFLpYVW\" \
+//                    -X PUT \
+//                    -T target/notebook-service-1.1.jar \
+//                    'http://emon:8083/artifactory/libs-release-local/com/coding/devops/notebook-service/1.1/notebook-service-1.1.jar;Test.UnitTestPassed=true;Test.CodeScanningPassed=true'
+//             '''
+//         }
 
-            server.publishBuildInfo buildInfo
-        }
-
-        //启动 Sonarqube 代码静态扫描
-        stage('Code scanning and get result'){
-            sh '''
-                mvn sonar:sonar -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=6ccc3f04e7dacf5cb299c46209b4237d8b46a3d1
-
-            '''
-
-        }
-
-        //启动 YAPI 接口测试
-        stage('API Testing'){
-         sh '''
-         curl http://localhost:3000/api/open/run_auto_test?id=11&token=b57ff23110407a89d4a81be007d6f35665772044cde1193b131a349c33aeb7ed
-         '''
-        }
-
-        //启动 Selenium UI 自动化测试
-        stage('Maven UI Testing'){
-            sh '''
-                mvn test
-            '''
-        }
-
+//        stage('Docker build'){
+//             sh '''
+//             docker build -t art.local:8081/docker-testing-local/notebook-k8s/notebook-service:\$BUILD_NUMBER .
+//             docker push art.local:8081/docker-testing-local/notebook-k8s/notebook-service:\$BUILD_NUMBER
+//             '''
+//         }
+//
+//         stage('Deploy to Kubernetes and do integration test'){
+//             sh '''
+//
+//             '''
+//         }
+//
+//         stage('Integration Test'){
+//                         sh '''
+//
+//                         '''
+//                     }
+//
+//         stage('Promote Jar to Testing Repo'){
+//             sh '''
+//             curl  -H \"X-JFrog-Art-Api: AKCp5ekw5hzGB6gTaU6YUWU5TCiEWS1dfNvJLmVQxYrFGqxVDAZ6kWnhy36sxwG3iTqPDfQ7T\" \
+//                                -X PUT \
+//                                -T target/notebook-service-1.0.jar \
+//                                'http://localhost:8082/artifactory/generic-testing-local/notebook-k8s/notebook-service/notebook-service-1.0.jar;Test.UnitTestPassed=true;Test.CodeScanningPassed=true;Test.IntegrationTestPassed=true'
+//             '''
+//         }
+//
+//         stage('UI Testing'){
+//             sh '''
+//
+//             '''
+//         }
+//
+//         stage('Promote jar and image to release repo'){
+//             sh '''
+//                 curl  -H \"X-JFrog-Art-Api: AKCp5ekw5hzGB6gTaU6YUWU5TCiEWS1dfNvJLmVQxYrFGqxVDAZ6kWnhy36sxwG3iTqPDfQ7T\" \
+//                                -X PUT \
+//                                -T target/notebook-service-1.0.jar \
+//                                'http://localhost:8082/artifactory/generic-release-local/notebook-k8s/notebook-service/notebook-service-1.0.jar;Test.UnitTestPassed=true;Test.CodeScanningPassed=true;Test.IntegrationTestPassed=true;Released=true'
+//
+//
+//                 docker tag art.local:8081/docker-testing-local/notebook-k8s/notebook-service:\$BUILD_NUMBER art.local:8081/docker-release-local/notebook-k8s/notebook-service:\$BUILD_NUMBER
+//                 docker push art.local:8081/docker-release-local/notebook-k8s/notebook-service:\$BUILD_NUMBER
+//
+//
+//
+//             '''
+//
+//             def commandText = "curl  -H \"X-JFrog-Art-Api: AKCp5ekw5hzGB6gTaU6YUWU5TCiEWS1dfNvJLmVQxYrFGqxVDAZ6kWnhy36sxwG3iTqPDfQ7T\" -X PUT \"http://art.local:8082/artifactory/api/storage/docker-release-local/notebook-k8s/notebook-service/${env.BUILD_NUMBER}?properties=Test.UnitTestPassed=true;Test.CodeScanningPassed=true;Test.IntegrationTestPassed=true;Released=true\" ";
+//             sh commandText
+//         }
     }
 
  }

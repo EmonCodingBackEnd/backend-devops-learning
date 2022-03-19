@@ -93,12 +93,12 @@
                 <repository>
                     <id>jcentral</id>
                     <name>ba0d6b8d5a2d-releases</name>
-                    <url>http://emon:8083/artifactory/libs-release</url>
+                    <url>http://172.17.0.1:8083/artifactory/libs-release</url>
                 </repository>
                 <snapshotRepository>
                     <id>jsnapshots</id>
                     <name>ba0d6b8d5a2d-snapshots</name>
-                    <url>http://emon:8083/artifactory/libs-snapshot</url>
+                    <url>http://172.17.0.1:8083/artifactory/libs-snapshot</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
