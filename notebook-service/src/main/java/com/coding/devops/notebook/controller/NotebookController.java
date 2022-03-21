@@ -1,6 +1,6 @@
-package com.coding.devops.nodebook.controller;
+package com.coding.devops.notebook.controller;
 
-import com.coding.devops.nodebook.repository.NotebookRepository;
+import com.coding.devops.notebook.repository.NotebookRepository;
 import com.coding.devops.notebook.entity.Notebook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.coding.devops.nodebook.repository;
+package com.coding.devops.notebook.repository;
 
 import com.coding.devops.notebook.entity.Notebook;
 import org.springframework.data.repository.CrudRepository;
