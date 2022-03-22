@@ -6,7 +6,7 @@
   tasks:
     - name: Copy jar files to web
       copy: src=notebook-service-1.0.jar dest=~/
-        owner=root group=root mode=0644
+        owner=emon group=emon mode=0644
     - name: start jar
       shell: nohup java -jar ~/notebook-service-1.0.jar  &
     - name: sleep 20 s
