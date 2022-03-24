@@ -1,5 +1,6 @@
 package com.coidng.devops.user.thrift;
 
+import com.coding.devops.thrift.message.MessageService;
 import com.coding.devops.thrift.user.UserService;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -11,15 +12,33 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ServiceProvider {
+public class ThriftServiceProvider {
 
     @Value("${thrift.user.ip}")
-    private String serverIp;
+    private String userServerIp;
 
     @Value("${thrift.user.port}")
-    private int serverPort;
+    private int userServerPort;
+
+    @Value("${thrift.message.ip}")
+    private String messageServerIp;
+
+    @Value("${thrift.message.port}")
+    private int messageServerPort;
 
     public UserService.Client getUserService() throws TTransportException {
+        TProtocol protocol = gettProtocol(userServerIp, userServerPort);
+        if (protocol == null) return null;
+        return new UserService.Client(protocol);
+    }
+
+    public MessageService.Client getMessageService() throws TTransportException {
+        TProtocol protocol = gettProtocol(messageServerIp, messageServerPort);
+        if (protocol == null) return null;
+        return new MessageService.Client(protocol);
+    }
+
+    private TProtocol gettProtocol(String serverIp, int serverPort) throws TTransportException {
         TSocket socket = new TSocket(serverIp, serverPort, 3000);
         TTransport transport = new TFramedTransport(socket);
         try {
@@ -29,8 +48,6 @@ public class ServiceProvider {
             return null;
         }
 
-        TProtocol protocol = new TBinaryProtocol(transport);
-        UserService.Client client = new UserService.Client(protocol);
-        return client;
+        return new TBinaryProtocol(transport);
     }
 }

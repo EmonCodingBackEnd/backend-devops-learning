@@ -43,7 +43,7 @@ if __name__ == '__main__':
     print("Python版本", sys.version_info[0])
     handler = MessageServiceHandler()
     processor = MessageService.Processor(handler)
-    transport = TSocket.TServerSocket("localhost", "9090")
+    transport = TSocket.TServerSocket("0.0.0.0", 9090)
     tfactory = TTransport.TFramedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 

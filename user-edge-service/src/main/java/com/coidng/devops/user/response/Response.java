@@ -8,6 +8,16 @@ public class Response implements Serializable {
     public static final Response USERNAME_PASSWORD =
             new Response("1001", "username or password is invalid!");
 
+    public static final Response MOBILE_OR_EMAIL_REQUIRED =
+            new Response("1002", "mobile or email is required");
+
+    public static final Response SEND_VERIFYCODE_FAILED =
+            new Response("1003", "send verify code failed");
+
+    public static final Response VERIFY_CODE_INVALID = new Response("1004", "verifyCode invalid");
+
+    public static final Response SUCCESS = new Response();
+
     private String code;
     private String message;
 
@@ -19,6 +29,10 @@ public class Response implements Serializable {
     public Response(String code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public static Response exception(Exception e) {
+        return new Response("9999", e.getMessage());
     }
 
     public String getCode() {

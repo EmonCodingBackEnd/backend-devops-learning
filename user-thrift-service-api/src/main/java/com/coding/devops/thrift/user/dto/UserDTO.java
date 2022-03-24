@@ -1,4 +1,4 @@
-package com.coidng.devops.user.dto;
+package com.coding.devops.thrift.user.dto;
 
 import java.io.Serializable;
 

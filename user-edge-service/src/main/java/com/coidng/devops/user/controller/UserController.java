@@ -1,21 +1,20 @@
 package com.coidng.devops.user.controller;
 
+import com.coding.devops.thrift.message.MessageService;
 import com.coding.devops.thrift.user.UserInfo;
-import com.coidng.devops.user.dto.UserDTO;
+import com.coding.devops.thrift.user.dto.UserDTO;
 import com.coidng.devops.user.redis.RedisClient;
 import com.coidng.devops.user.response.LoginResponse;
 import com.coidng.devops.user.response.Response;
-import com.coidng.devops.user.thrift.ServiceProvider;
+import com.coidng.devops.user.thrift.ThriftServiceProvider;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.thrift.TException;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -24,17 +23,22 @@ import java.security.NoSuchAlgorithmException;
 @Controller
 public class UserController {
 
-    @Autowired private ServiceProvider serviceProvider;
+    @Autowired private ThriftServiceProvider thriftServiceProvider;
     @Autowired private RedisClient redisClient;
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Response login(
             @RequestParam("username") String username, @RequestParam("password") String password) {
         // 1.验证用户名密码
-        UserInfo userInfo = null;
+        UserInfo userInfo;
         try {
-            userInfo = serviceProvider.getUserService().getUserByName(username);
+            userInfo = thriftServiceProvider.getUserService().getUserByName(username);
         } catch (TException e) {
             e.printStackTrace();
             return Response.USERNAME_PASSWORD;
@@ -57,6 +61,78 @@ public class UserController {
         return new LoginResponse(token);
     }
 
+    @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
+    @ResponseBody
+    public Response sendVerifyCode(
+            @RequestParam(value = "mobile", required = false) String mobile,
+            @RequestParam(value = "email", required = false) String email) {
+        String message = "Verify code is:";
+        String code = RandomStringUtils.random(6, "0123456789");
+        try {
+            boolean result = false;
+            if (StringUtils.isNoneBlank(mobile)) {
+                MessageService.Client messageService = thriftServiceProvider.getMessageService();
+                result = messageService.sendMobileMessage(mobile, message + code);
+                redisClient.set(mobile, code);
+            } else if (StringUtils.isNoneBlank(email)) {
+                result =
+                        thriftServiceProvider
+                                .getMessageService()
+                                .sendEmailMessage(email, message + code);
+                redisClient.set(email, code);
+            } else {
+                return Response.MOBILE_OR_EMAIL_REQUIRED;
+            }
+            if (!result) {
+                return Response.SEND_VERIFYCODE_FAILED;
+            }
+        } catch (TException e) {
+            e.printStackTrace();
+            return Response.exception(e);
+        }
+        return Response.SUCCESS;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public Response register(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam(value = "mobile", required = false) String mobile,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam("verifyCode") String verifyCode) {
+        if (StringUtils.isEmpty(mobile) && StringUtils.isEmpty(email)) {
+            return Response.MOBILE_OR_EMAIL_REQUIRED;
+        }
+
+        if (StringUtils.isNoneBlank(mobile)) {
+            String redisCode = redisClient.get(mobile);
+            if (!verifyCode.equals(redisCode)) {
+                return Response.VERIFY_CODE_INVALID;
+            }
+        } else {
+            String redisCode = redisClient.get(email);
+            if (!verifyCode.equals(redisCode)) {
+                return Response.VERIFY_CODE_INVALID;
+            }
+        }
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(username);
+        userInfo.setPassword(md5(password));
+        userInfo.setMobile(mobile);
+        userInfo.setEmail(email);
+
+        try {
+            thriftServiceProvider.getUserService().registerUser(userInfo);
+        } catch (TException e) {
+            e.printStackTrace();
+            return Response.exception(e);
+        }
+
+        return Response.SUCCESS;
+    }
+
     private UserDTO toDTO(UserInfo userInfo) {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(userInfo, userDTO);
@@ -76,5 +152,11 @@ public class UserController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @RequestMapping(value = "/authentication", method = RequestMethod.POST)
+    @ResponseBody
+    public UserDTO authentication(@RequestHeader("token") String token) {
+        return redisClient.get(token);
     }
 }
