@@ -1,0 +1,11 @@
+server:
+  display-name: user-thrift-service
+  port: 7911
+
+# 数据源的配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://emon:3306/db_user?useUnicode=true&useSSL=false
+    username: root
+    password: root123

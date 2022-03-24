@@ -1,0 +1,16 @@
+server:
+  display-name: user-edge-service
+  port: 8082
+
+thrift:
+  user:
+    ip: 127.0.0.1
+    port: 7911
+
+# redis config
+spring:
+  redis:
+    host: emon
+    port: 6379
+    password: redis123
+    timeout: 0
