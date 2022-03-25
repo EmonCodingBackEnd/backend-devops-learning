@@ -7,8 +7,7 @@ dubbo:
   application:
     name: course-edge-service
   registry:
-#    address: zookeeper://${zookeeper.address}:2181
-    address: zookeeper://192.168.1.116:2181
+    address: zookeeper://${zookeeper.address}:2181
     check: false
   monitor:
     protocol: register
