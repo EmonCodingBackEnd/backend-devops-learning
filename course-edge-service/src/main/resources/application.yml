@@ -19,4 +19,4 @@ dubbo:
 user:
   edge:
     service:
-      addr: user-edge-service
+      addr: http://user-edge-service:8082
