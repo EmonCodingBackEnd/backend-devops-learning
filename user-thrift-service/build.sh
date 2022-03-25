@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 用例： [emon@emon user-thrift-service]$ sudo sh build.sh
+# 用例： [emon@emon backend-devops-learning]$ sh user-thrift-service/build.sh
 
 cd /home/emon/dockerdata/backend-devops-learning
 mvn clean package -DskipTests
@@ -8,4 +8,4 @@ mvn clean package -DskipTests
 sleep 2
 
 cd /home/emon/dockerdata/backend-devops-learning/user-thrift-service
-docker build -t user-thrift-service:latest .
+sudo docker build -t user-thrift-service:latest .
