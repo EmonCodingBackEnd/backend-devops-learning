@@ -5,16 +5,16 @@ server:
 
 thrift:
   user:
-    ip: 127.0.0.1
+    ip: user-service
     port: 7911
   message:
-    ip: 127.0.0.1
+    ip: message-service
     port: 9090
 
 # redis config
 spring:
   redis:
-    host: emon
+    host: ${redis.address}
     port: 6379
-#    password: redis123
+    #    password: redis123
     timeout: 0
