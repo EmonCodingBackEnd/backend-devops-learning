@@ -1,6 +1,7 @@
 server:
-  display-name: user-edge-service
   port: 8082
+  servlet:
+    context-path: /user
 
 thrift:
   user:
@@ -15,5 +16,5 @@ spring:
   redis:
     host: emon
     port: 6379
-    password: redis123
+#    password: redis123
     timeout: 0

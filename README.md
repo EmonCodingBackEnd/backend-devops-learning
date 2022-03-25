@@ -76,6 +76,9 @@ docker run --name devops-redis -v /usr/local/dockerv/redis_home/data:/data \
 ```
 
 # 课程 EdgeService
+```bash
+docker run --name devops-zookeeper -p 2181:2181 --restart always -d zookeeper:3.5
+```
 
 # API GATEWAY
 

@@ -7,8 +7,8 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <!--<version>2.6.4</version>-->
-        <!--<version>2.3.5.RELEASE</version>-->
-        <version>1.5.3.RELEASE</version>
+        <version>2.3.5.RELEASE</version>
+        <!--<version>1.5.3.RELEASE</version>-->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -25,6 +25,10 @@
         <module>user-edge-service</module>
         <module>user-edge-service-client</module>
         <module>dubbo-demo</module>
+        <module>course-dubbo-service-api</module>
+        <module>course-dubbo-service</module>
+        <module>course-edge-service</module>
+        <module>api-gateway-zuul</module>
     </modules>
 
     <properties>
@@ -36,11 +40,16 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
+
+        <dubbo.version>2.7.15</dubbo.version>
+        <zookeeper.version>3.5.9</zookeeper.version>
+        <curator.version>4.3.0</curator.version>
+
         <!--<spring-boot.version>2.6.4</spring-boot.version>-->
-        <!--<spring-boot.version>2.3.5.RELEASE</spring-boot.version>-->
-        <spring-boot.version>1.5.3.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
+        <!--<spring-boot.version>1.5.3.RELEASE</spring-boot.version>-->
         <!--<spring-cloud.version>2021.0.1</spring-cloud.version>-->
-        <!--<spring-cloud.version>Hoxton.SR8</spring-cloud.version>-->
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <!--<spring-cloud.version>待定</spring-cloud.version>-->
 
         <jfrog.host>emon</jfrog.host>
@@ -48,13 +57,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>-->
+            </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.apache.thrift/libthrift -->
             <dependency>
@@ -81,8 +90,36 @@
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
-                <version>2.7.15</version>
+                <version>${dubbo.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+            <!--zookeeper依赖-->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <!--zookeeper的api管理依赖-->
+            <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.12.0</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>com.coding.devops</groupId>
@@ -92,6 +129,11 @@
             <dependency>
                 <groupId>com.coding.devops</groupId>
                 <artifactId>user-thrift-service-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.coding.devops</groupId>
+                <artifactId>course-dubbo-service-api</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>

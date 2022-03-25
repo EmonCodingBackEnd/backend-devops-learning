@@ -35,7 +35,7 @@ public abstract class LoginFilter implements Filter {
             ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String token = request.getParameter("token");
         if (StringUtils.isBlank(token)) {
@@ -54,6 +54,9 @@ public abstract class LoginFilter implements Filter {
             userDTO = cache.getIfPresent(token);
             if (userDTO == null) {
                 userDTO = requestUserInfo(token);
+                if (userDTO != null) {
+                    cache.put(token, userDTO);
+                }
             }
         }
 
@@ -62,19 +65,19 @@ public abstract class LoginFilter implements Filter {
             return;
         }
 
-        cache.put(token, userDTO);
-
         login(request, response, userDTO);
         filterChain.doFilter(request, response);
     }
+
+    protected abstract String userEdgeServiceAddr();
 
     protected abstract void login(
             HttpServletRequest request, HttpServletResponse response, UserDTO userDTO);
 
     private UserDTO requestUserInfo(String token) {
-        String url = "http://127.0.0.1:8082/authentication";
+        String url = "http://" + userEdgeServiceAddr() + "/user/authentication";
         HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost();
+        HttpPost post = new HttpPost(url);
         post.addHeader("token", token);
         InputStream inputStream = null;
         try {

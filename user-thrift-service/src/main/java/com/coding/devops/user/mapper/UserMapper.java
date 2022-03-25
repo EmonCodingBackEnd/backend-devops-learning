@@ -13,6 +13,14 @@ public interface UserMapper {
     UserInfo getUserById(@Param("id") int id);
 
     @Select(
+            "select u.id, u.username, u.password, u.real_name as realName, "
+                    + "u.mobile,u.email,t.intro, t.stars "
+                    + "from pe_user u "
+                    + "left join pe_teacher t on u.id=t.user_id "
+                    + "where u.id=#{id}")
+    UserInfo getTeacherById(@Param("id") int id);
+
+    @Select(
             "select id, username, password, real_name as realName from pe_user where username=#{username}")
     UserInfo getUserByName(@Param("username") String username);
 
