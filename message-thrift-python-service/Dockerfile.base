@@ -1,0 +1,4 @@
+FROM python:3.9
+MAINTAINER 问秋 liming2011071@163.com
+
+RUN pip install thrift
