@@ -1,5 +1,7 @@
 version: '3'
 
+# 启动命令： [emon@emon backend-devops-learning]$ docker-compose up -d
+# 查看jar包详情： [emon@emon backend-devops-learning]$ jar -tf user-edge-service/target/user-edge-service.jar
 services:
   message-service:
     image: message-service:latest
