@@ -6,6 +6,6 @@ cd /home/emon/dockerdata/backend-devops-learning
 mvn clean package -DskipTests
 
 cd /home/emon/dockerdata/backend-devops-learning/user-thrift-service
-sudo docker build -t user-thrift-service:latest .
+sudo docker build -t user-service:latest .
 
-# 启动容器： [emon@emon backend-devops-learning]$ docker run -it user-thrift-service:latest --mysql.address=10.0.0.116
+# 启动容器： [emon@emon backend-devops-learning]$ docker run -it user-service:latest --mysql.address=10.0.0.116

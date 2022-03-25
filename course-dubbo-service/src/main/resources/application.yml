@@ -5,20 +5,20 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://emon:3306/db_course?useUnicode=true&useSSL=false
+    url: jdbc:mysql://${mysql.address}:3306/db_course?useUnicode=true&useSSL=false
     username: root
     password: root123
 
 thrift:
   user:
-    ip: 127.0.0.1
+    ip: user-service
     port: 7911
 
 dubbo:
   application:
     name: course-service
   registry:
-    address: zookeeper://emon:2181
+    address: zookeeper://${zookeeper.address}:2181
     check: false
   protocol:
     name: dubbo
