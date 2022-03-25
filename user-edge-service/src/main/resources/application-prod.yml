@@ -1,0 +1,20 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /user
+
+thrift:
+  user:
+    ip: user-service
+    port: 7911
+  message:
+    ip: message-service
+    port: 9090
+
+# redis config
+spring:
+  redis:
+    host: ${redis.address}
+    port: 6379
+    #    password: redis123
+    timeout: 0
