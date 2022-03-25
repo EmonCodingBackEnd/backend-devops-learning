@@ -18,7 +18,8 @@ dubbo:
   application:
     name: course-service
   registry:
-    address: zookeeper://${zookeeper.address}:2181
+#    address: zookeeper://${zookeeper.address}:2181
+    address: zookeeper://127.0.0.1:2181
     check: false
   protocol:
     name: dubbo
