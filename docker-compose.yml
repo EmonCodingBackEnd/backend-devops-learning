@@ -2,6 +2,7 @@ version: '3'
 
 # 启动命令： [emon@emon backend-devops-learning]$ docker-compose up -d
 # 查看jar包详情： [emon@emon backend-devops-learning]$ jar -tf user-edge-service/target/user-edge-service.jar
+# 启动后，访问地址： http://emon:8080/user/login  前提是确保emon在访问机器和docker机器都能解析到对应机器  http://emon:8080/course/courseList?token=n6hcc2nt1b5dvenoellkh2jg5pwjhosv
 services:
   message-service:
     image: message-service:latest

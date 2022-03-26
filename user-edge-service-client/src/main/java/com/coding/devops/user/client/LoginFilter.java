@@ -10,6 +10,8 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -20,6 +22,7 @@ import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 public abstract class LoginFilter implements Filter {
+    private static final Logger log = LoggerFactory.getLogger(LoginFilter.class);
 
     private static Cache<String, UserDTO> cache =
             CacheBuilder.newBuilder()
@@ -76,6 +79,7 @@ public abstract class LoginFilter implements Filter {
 
     private UserDTO requestUserInfo(String token) {
         String url = "http://" + userEdgeServiceAddr() + "/user/authentication";
+        log.info("LoginFilter:url={}", url);
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
         post.addHeader("token", token);
