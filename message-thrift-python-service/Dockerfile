@@ -1,4 +1,4 @@
-FROM python-base:latest
+FROM emon:5080/devops-learning/python-base:latest
 MAINTAINER 问秋 liming2011071@163.com
 
 ENV PYTHONPATH /

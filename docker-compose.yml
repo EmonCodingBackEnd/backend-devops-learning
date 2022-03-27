@@ -44,3 +44,15 @@ services:
       - course-edge-service
     ports:
       - 8080:8080
+
+
+
+# 上传镜像库到镜像私服
+# docker tag openjdk:8-jre emon:5080/devops-learning/openjdk:8-jre
+# docker push emon:5080/devops-learning/openjdk:8-jre
+
+# docker tag python:3.9 emon:5080/devops-learning/python:3.9
+# docker push emon:5080/devops-learning/python:3.9
+
+# docker tag python-base emon:5080/devops-learning/python-base
+# docker push emon:5080/devops-learning/python-base
