@@ -69,7 +69,7 @@ public class UserController {
         String message = "Verify code is:";
         String code = RandomStringUtils.random(6, "0123456789");
         try {
-            boolean result = false;
+            boolean result;
             if (StringUtils.isNoneBlank(mobile)) {
                 MessageService.Client messageService = thriftServiceProvider.getMessageService();
                 result = messageService.sendMobileMessage(mobile, message + code);

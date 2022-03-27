@@ -3,15 +3,19 @@ version: '3'
 # 启动命令： [emon@emon backend-devops-learning]$ docker-compose up -d
 # 查看jar包详情： [emon@emon backend-devops-learning]$ jar -tf user-edge-service/target/user-edge-service.jar
 # 启动后，访问地址： http://emon:8080/user/login  前提是确保emon在访问机器和docker机器都能解析到对应机器  http://emon:8080/course/courseList?token=n6hcc2nt1b5dvenoellkh2jg5pwjhosv
+# 指定启动某个服务： docker-compose up -d message-service
 services:
   message-service:
     image: message-service:latest
+    container_name: message-service
   user-service:
     image: user-service:latest
+    container_name: user-service
     command:
       - "--mysql.address=172.17.0.1"
   user-edge-service:
     image: user-edge-service:latest
+    container_name: user-edge-service
     links:
       - user-service
       - message-service
@@ -19,6 +23,7 @@ services:
       - "--redis.address=172.17.0.1"
   course-service:
     image: course-service:latest
+    container_name: course-service
     links:
       - user-service
     command:
@@ -26,12 +31,14 @@ services:
       - "--zookeeper.address=172.17.0.1"
   course-edge-service:
     image: course-edge-service:latest
+    container_name: course-edge-service
     links:
       - user-edge-service
     command:
       - "--zookeeper.address=172.17.0.1"
   api-gateway-zuul:
     image: api-gateway:latest
+    container_name: api-gateway-zuul
     links:
       - user-edge-service
       - course-edge-service
