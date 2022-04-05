@@ -2,10 +2,10 @@
 
 # 用例： [emon@emon backend-devops-learning]$ sh course-dubbo-service/build.sh
 
-cd /home/emon/dockerdata/backend-devops-learning
+cd /root/dockerdata/backend-devops-learning
 mvn clean package -DskipTests
 
-cd /home/emon/dockerdata/backend-devops-learning/course-dubbo-service
+cd /root/dockerdata/backend-devops-learning/course-dubbo-service
 sudo docker build -t emon:5080/devops-learning/course-service:latest .
 
 sudo docker push emon:5080/devops-learning/course-service:latest
