@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cronjob-demo
+spec:
+  schedule: "*/1 * * * *"
+  # 保留历史成功任务个数
+  successfulJobsHistoryLimit: 3
+  # 是否停止，false表示立即按照schedule调度
+  suspend: false
+  # 任务并行策略，阻止！
+  concurrencyPolicy: Forbid
+  # 保留历史失败任务个数
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cronjob-demo
+        spec:
+          # 重启策略，运行失败时是否重启
+          restartPolicy: Never
+          containers:
+          - name: cronjob-demo
+            image: 192.168.200.116:5080/devops-learning/cronjob-demo:latest
