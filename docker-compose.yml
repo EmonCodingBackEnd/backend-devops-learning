@@ -48,11 +48,11 @@ services:
 
 
 # 上传镜像库到镜像私服
-# docker tag openjdk:8-jre emon:5080/devops-learning/openjdk:8-jre
-# docker push emon:5080/devops-learning/openjdk:8-jre
+# docker tag openjdk:8-jre 192.168.200.116:5080/devops-learning/openjdk:8-jre
+# docker push 192.168.200.116:5080/devops-learning/openjdk:8-jre
 
-# docker tag python:3.9 emon:5080/devops-learning/python:3.9
-# docker push emon:5080/devops-learning/python:3.9
+# docker tag python:3.9 192.168.200.116:5080/devops-learning/python:3.9
+# docker push 192.168.200.116:5080/devops-learning/python:3.9
 
-# docker tag python-base emon:5080/devops-learning/python-base
-# docker push emon:5080/devops-learning/python-base
+# docker tag python-base 192.168.200.116:5080/devops-learning/python-base
+# docker push 192.168.200.116:5080/devops-learning/python-base
