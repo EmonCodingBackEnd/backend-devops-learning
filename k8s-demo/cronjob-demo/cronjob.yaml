@@ -24,3 +24,7 @@ spec:
           containers:
           - name: cronjob-demo
             image: 192.168.200.116:5080/devops-learning/cronjob-demo:latest
+
+# 加载资源： kubectl apply -f k8s-demo/cronjob-demo/cronjob.yaml
+# 删除资源： kubectl delete -f k8s-demo/cronjob-demo/cronjob.yaml
+# 查看job： kubectl get cronjob
