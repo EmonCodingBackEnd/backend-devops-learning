@@ -10,4 +10,4 @@ docker build -t 192.168.200.116:5080/devops-learning/cronjob-demo:latest .
 
 docker push 192.168.200.116:5080/devops-learning/cronjob-demo:latest
 
-# 启动容器： [emon@emon backend-devops-learning]$ docker run -it cronjob-demo:latest
+# 启动容器： [emon@emon backend-devops-learning]$ docker run -it 192.168.200.116:5080/devops-learning/cronjob-demo:latest
