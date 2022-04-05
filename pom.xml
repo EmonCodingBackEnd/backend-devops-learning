@@ -29,6 +29,7 @@
         <module>course-dubbo-service</module>
         <module>course-edge-service</module>
         <module>api-gateway-zuul</module>
+        <module>k8s-demo</module>
     </modules>
 
     <properties>
