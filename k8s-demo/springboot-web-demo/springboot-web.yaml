@@ -14,10 +14,10 @@ spec:
         app: springboot-web-demo
     spec:
       containers:
-        - name: springboot-web-demo
-          image: 192.168.200.116:5080/devops-learning/springboot-web-demo:latest
-          ports:
-            - containerPort: 8080
+      - name: springboot-web-demo
+        image: 192.168.200.116:5080/devops-learning/springboot-web-demo:latest
+        ports:
+        - containerPort: 8080
 ---
 #service
 apiVersion: v1
@@ -26,41 +26,32 @@ metadata:
   name: springboot-web-demo
 spec:
   ports:
-    - port: 80
-      protocol: TCP
-      targetPort: 8080
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
   selector:
     app: springboot-web-demo
   type: ClusterIP
 
 ---
 #ingress
-apiVersion: extensions/v1beta1
-#apiVersion: networking.k8s.io/v1
+#apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: springboot-web-demo
 spec:
   rules:
-    - host: springboot.mooc.com
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: springboot-web-demo
-              servicePort: 80
-#spec:
-#  rules:
-#    - host: springboot.mooc.com
-#      http:
-#        paths:
-#          - path: /
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: springboot-web-demo
-#                port:
-#                  number: 80
+  - host: springboot.mooc.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: springboot-web-demo
+            port:
+              number: 80
 
 # 执行目录： $ cd /root/dockerdata/backend-devops-learning
 # 加载资源： $ kubectl apply -f k8s-demo/springboot-web-demo/springboot-web.yaml
