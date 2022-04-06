@@ -56,5 +56,6 @@ spec:
 # 执行目录： $ cd /root/dockerdata/backend-devops-learning
 # 加载资源： $ kubectl apply -f k8s-demo/springboot-web-demo/springboot-web.yaml
 # 删除资源： $ kubectl delete -f k8s-demo/springboot-web-demo/springboot-web.yaml
-# 查看job： $ kubectl get cronjob
+# 查看deploy： $ kubectl get deploy -o wide
+# 查看svc： $ kubectl get svc -o wide
 # 查看pod： $ kubectl get pods -o wide
