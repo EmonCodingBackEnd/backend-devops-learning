@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: springboot-web-demo
-          image: hub.mooc.com/kubernetes/springboot-web:v1
+          image: 192.168.200.116:5080/devops-learning/springboot-web-demo:latest
           ports:
             - containerPort: 8080
 ---
