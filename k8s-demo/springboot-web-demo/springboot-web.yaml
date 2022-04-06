@@ -46,9 +46,12 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: springboot-web-demo
-              servicePort: 80
+              service:
+                name: springboot-web-demo
+                port:
+                  number: 80
 
 # 执行目录： $ cd /root/dockerdata/backend-devops-learning
 # 加载资源： $ kubectl apply -f k8s-demo/springboot-web-demo/springboot-web.yaml
