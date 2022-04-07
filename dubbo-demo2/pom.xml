@@ -9,13 +9,13 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dubbo-demo</artifactId>
+    <artifactId>dubbo-demo2</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>dubbo-demo-api</module>
-        <module>dubbo-demo-provider</module>
-        <module>dubbo-demo-consumer</module>
+        <module>dubbo-demo2-api</module>
+        <module>dubbo-demo2-provider</module>
+        <module>dubbo-demo2-consumer</module>
     </modules>
 
     <properties>
@@ -25,12 +25,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.coding.devops</groupId>
-                <artifactId>dubbo-demo-api</artifactId>
+                <artifactId>dubbo-demo2-api</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.coding.devops</groupId>
-                <artifactId>dubbo-demo-provider</artifactId>
+                <artifactId>dubbo-demo2-provider</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

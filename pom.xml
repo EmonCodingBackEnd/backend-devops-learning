@@ -24,7 +24,7 @@
         <module>user-thrift-service</module>
         <module>user-edge-service</module>
         <module>user-edge-service-client</module>
-        <module>dubbo-demo</module>
+        <module>dubbo-demo2</module>
         <module>course-dubbo-service-api</module>
         <module>course-dubbo-service</module>
         <module>course-edge-service</module>
