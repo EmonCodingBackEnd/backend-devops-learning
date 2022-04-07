@@ -8,7 +8,7 @@ cd k8s-demo/springboot-web-demo
 pwd
 
 docker build -t 192.168.200.116:5080/devops-learning/springboot-web-demo:latest .
-cd "$WORKSPACE"
+cd "$WORKSPACE"/"$JOB_NAME"
 pwd
 
 #docker push 192.168.200.116:5080/devops-learning/springboot-web-demo:latest
