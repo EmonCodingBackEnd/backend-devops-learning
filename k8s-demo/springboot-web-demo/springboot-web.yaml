@@ -59,3 +59,9 @@ spec:
 # 查看deploy： $ kubectl get deploy -o wide
 # 查看svc： $ kubectl get svc -o wide
 # 查看pod： $ kubectl get pods -o wide
+# 查看所有： $ kubectl get all -o wide
+
+
+# 入额访问？ 192.168.200.118是nginx-ingress-controller所在节点的物理IP地址
+# 1：本地配置DNS     192.168.200.118 springboot.mooc.com
+# 2：访问：         http://springboot.mooc.com/hello?name=lm
