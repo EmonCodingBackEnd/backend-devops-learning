@@ -6,6 +6,8 @@
     <modules>
         <module>cronjob-demo</module>
         <module>springboot-web-demo</module>
+        <module>dubbo-demo-api</module>
+        <module>dubbo-demo</module>
     </modules>
     <parent>
         <artifactId>devops-learning</artifactId>
@@ -17,5 +19,20 @@
     <packaging>pom</packaging>
     <description>k8s单服务demo</description>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.coding.devops</groupId>
+                <artifactId>dubbo-demo-api</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>2.7.15</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
