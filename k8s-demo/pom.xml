@@ -6,8 +6,6 @@
     <modules>
         <module>cronjob-demo</module>
         <module>springboot-web-demo</module>
-        <module>dubbo-demo-api</module>
-        <module>dubbo-demo</module>
     </modules>
     <parent>
         <artifactId>devops-learning</artifactId>
