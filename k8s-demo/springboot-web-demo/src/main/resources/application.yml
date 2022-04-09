@@ -1,17 +1,24 @@
 server:
   port: 8080
+  shutdown: graceful
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30
 
 management:
   endpoint:
     env:
       enabled: true
     health:
+      probes:
+        enabled: true
       show-details: always
   endpoints:
     web:
       exposure:
         include: "*" # 打开所有的监控点
-        
+
 #management:
 #  endpoints:
 #    # 暴露 EndPoint 以供访问，有jmx和web两种方式，exclude 的优先级高于 include
