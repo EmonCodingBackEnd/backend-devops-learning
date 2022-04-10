@@ -1,7 +1,8 @@
 #!/bin/bash
 
 cd /root/dockerdata/backend-devops-learning
-mvn clean package -DskipTests
+#mvn clean package -DskipTests
+mvn -pl k8s-demo/springboot-web-demo -am clean package -Dmaven.test.skip=true
 
 cd /root/dockerdata/backend-devops-learning/k8s-demo/springboot-web-demo
 docker build -t 192.168.200.116:5080/devops-learning/springboot-web-demo:latest .
