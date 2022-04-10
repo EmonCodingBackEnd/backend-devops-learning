@@ -10,6 +10,6 @@ public class DemoController {
     @RequestMapping("/hello")
     public String sayHello(@RequestParam String name) {
 
-        return "Hello " + name + "! I'm springboot-web-demo controller!1";
+        return "Hello " + name + "! I'm springboot-web-demo controller!bluegreen";
     }
 }
