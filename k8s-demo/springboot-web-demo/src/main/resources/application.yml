@@ -5,6 +5,8 @@ server:
 spring:
   lifecycle:
     timeout-per-shutdown-phase: 30
+  profiles:
+    active: dev
 
 management:
   endpoint:
