@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--引入SpringBoot日志配置-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="logback-spring-defaults.xml"/>
+
+    <!--JMX配置器允许通过JXM配置logback-->
+    <!--如果服务器运行在JDK1.6或更高版本，可以直接运行jconsole程序，然后连接到你的服务器的MBeanServer-->
+    <jmxConfigurator/>
+
+    <property name="logDir" value="/home/saas/devops/@project.parent.artifactId@/logs"/>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>${CONSOLE_LOG_PATTERN}</pattern>-->
+            <pattern>${CONSOLE_LOG_PATTERN_CUSTOMER}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <!--<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${CONSOLE_LOG_PATTERN_CUSTOMER}</pattern>
+            </layout>
+            <charset>utf8</charset>
+        </encoder>-->
+    </appender>
+
+    <appender name="desc_normal" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logDir}/%d{yyyyMMdd}/desc_normal.%i.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <!--<pattern>${FILE_LOG_PATTERN}</pattern>-->
+            <pattern>${FILE_LOG_PATTERN_CUSTOMER}</pattern>
+        </encoder>
+        <!--<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>${FILE_LOG_PATTERN_CUSTOMER}</pattern>
+            </layout>
+            <charset>utf8</charset>
+        </encoder>-->
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="desc_normal"/>
+    </root>
+
+</configuration>

@@ -21,6 +21,9 @@ management:
       exposure:
         include: "*" # 打开所有的监控点
 
+logging:
+  config: classpath:logback-spring.xml
+
 #management:
 #  endpoints:
 #    # 暴露 EndPoint 以供访问，有jmx和web两种方式，exclude 的优先级高于 include

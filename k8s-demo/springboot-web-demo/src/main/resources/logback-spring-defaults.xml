@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Default logback configuration provided for import, equivalent to the programmatic
+initialization performed by Boot
+-->
+
+<included>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!--<property name="CONSOLE_LOG_PATTERN_CUSTOMER" value="${CONSOLE_LOG_PATTERN_CUSTOMER:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} [%tid] [%mdc{ip} %mdc{method} %mdc{url} %mdc{browerName},%mdc{osName}] %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="FILE_LOG_PATTERN_CUSTOMER" value="${FILE_LOG_PATTERN_CUSTOMER:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%tid] [%mdc{ip} %mdc{method} %mdc{url} %mdc{browerName},%mdc{osName}] ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } -&#45;&#45; [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
+    <property name="CONSOLE_LOG_PATTERN_CUSTOMER" value="${CONSOLE_LOG_PATTERN_CUSTOMER:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} [%mdc{trace-id}] [%mdc{ip} %mdc{method} %mdc{url} %mdc{browerName},%mdc{osName}] %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="FILE_LOG_PATTERN_CUSTOMER" value="${FILE_LOG_PATTERN_CUSTOMER:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%mdc{trace-id}] [%mdc{ip} %mdc{method} %mdc{url} %mdc{browerName},%mdc{osName}] ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+</included>
