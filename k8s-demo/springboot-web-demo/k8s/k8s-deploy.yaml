@@ -68,7 +68,7 @@ spec:
               mountPath: /home/saas/devops/k8s-demo/logs
       volumes:
         - name: log-volume
-          emptyDir: {}
+          emptyDir: { }
 ---
 #service
 apiVersion: v1
