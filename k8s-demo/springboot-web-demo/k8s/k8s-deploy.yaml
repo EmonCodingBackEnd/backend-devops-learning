@@ -53,22 +53,22 @@ spec:
 #            initialDelaySeconds: 10
 #            periodSeconds: 10
 #            timeoutSeconds: 3
-          env:
-            # 1、stdout为约定关键字，表示采集标准输出日志
-            # 2、配置标准输出日志采集到ES的catalina索引下
-            - name: aliyun_logs_catalina
-              value: "stdout"
-            # 1、配置采集容器内文件日志，支持通配符
-            # 2、配置该日志采集到ES的access索引下
-            - name: aliyun_logs_access
-              value: "/home/saas/devops/k8s-demo/logs/*.log"
-          # 容器内文件日志路径需要配置emptyDir
-          volumeMounts:
-            - name: log-volume
-              mountPath: /home/saas/devops/k8s-demo/logs
-      volumes:
-        - name: log-volume
-          emptyDir: { }
+#          env:
+#            # 1、stdout为约定关键字，表示采集标准输出日志
+#            # 2、配置标准输出日志采集到ES的catalina索引下
+#            - name: aliyun_logs_catalina
+#              value: "stdout"
+#            # 1、配置采集容器内文件日志，支持通配符
+#            # 2、配置该日志采集到ES的access索引下
+#            - name: aliyun_logs_access
+#              value: "/home/saas/devops/k8s-demo/logs/*.log"
+#          # 容器内文件日志路径需要配置emptyDir
+#          volumeMounts:
+#            - name: log-volume
+#              mountPath: /home/saas/devops/k8s-demo/logs
+#      volumes:
+#        - name: log-volume
+#          emptyDir: { }
 ---
 #service
 apiVersion: v1
