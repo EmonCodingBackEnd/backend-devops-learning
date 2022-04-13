@@ -27,7 +27,8 @@
 
     <appender name="desc_normal" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logDir}/%d{yyyyMMdd}/desc_normal.%i.log.gz</fileNamePattern>
+            <!--<fileNamePattern>${logDir}/%d{yyyyMMdd}/desc_normal.%i.log.gz</fileNamePattern>-->
+            <fileNamePattern>${logDir}/desc_normal_%d{yyyyMMdd}.%i.log.gz</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
