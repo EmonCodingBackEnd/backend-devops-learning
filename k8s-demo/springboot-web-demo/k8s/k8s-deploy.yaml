@@ -1,4 +1,4 @@
-# k8s-deploy.yaml
+# web-custom.yaml 或者 k8s-deploy.yaml 或其他名字
 #deploy
 apiVersion: apps/v1
 kind: Deployment
